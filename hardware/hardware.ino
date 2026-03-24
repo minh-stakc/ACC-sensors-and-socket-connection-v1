@@ -28,6 +28,10 @@ DHT dht(DHTPIN, DHTTYPE);
 #define PIN_MQ135 A0
 MQ135 mq135_sensor = MQ135(PIN_MQ135);
 
+// WiFi credentials -- set these before flashing
+#define WIFI_SSID "YOUR_SSID"
+#define WIFI_PASSWORD "YOUR_PASSWORD"
+
 void socketIOEvent(socketIOmessageType_t type, uint8_t* payload, size_t length) {
   switch (type) {
     case sIOtype_DISCONNECT:
@@ -72,7 +76,7 @@ void setup() {
   if (WiFi.getMode() & WIFI_AP) {
     WiFi.softAPdisconnect(true);
   }
-  WiFiMulti.addAP("AmericanStudy T1", "66668888");
+  WiFiMulti.addAP(WIFI_SSID, WIFI_PASSWORD);
   while (WiFiMulti.run() != WL_CONNECTED) {
     delay(100);
   }
